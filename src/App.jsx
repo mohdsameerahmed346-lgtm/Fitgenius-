@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 
-const API_KEY = "YOUR_API_KEY_HERE";
-
 const PLANS = [
   {
     id: "free", name: "Starter", price: "₹0", period: "forever", color: "#475569",
