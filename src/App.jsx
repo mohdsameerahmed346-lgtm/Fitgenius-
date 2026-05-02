@@ -85,7 +85,7 @@ export default function App() {
     { role: "assistant", content: "Hey! I'm Flex, your AI fitness coach! 💪 Ask me anything about workouts, nutrition, or fitness goals!" }
   ]);
   const [chatInput, setChatInput] = useState("");
-  const [payPlan, setPayPlan] = useState(null);
+  const [payPlan] = useState(null);
   const [payStep, setPayStep] = useState(1);
   const chatRef = useRef(null);
 
