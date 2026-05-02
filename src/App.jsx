@@ -29,7 +29,6 @@ async function callAI(prompt, system = "") {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      fetch("/api/chat", {...})
       "anthropic-version": "2023-06-01",
       "anthropic-dangerous-direct-browser-access": "true",
     },
