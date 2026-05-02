@@ -99,7 +99,7 @@ export default function App() {
         .then(m => setMotivation(m))
         .catch(() => setMotivation('"The body achieves what the mind believes." — Unknown'));
     }
-  }, [page]);
+  }, [page, motivation]);
 
   function handleAuth() {
     setAuthErr(""); setAuthLoading(true);
