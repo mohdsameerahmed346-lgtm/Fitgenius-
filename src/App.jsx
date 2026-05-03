@@ -19,10 +19,6 @@ const PLANS = [
   },
 ];
 
-const FAKE_USERS = {
-  "demo@fitgenius.in": { password: "demo123", name: "Arjun Singh", plan: "free", uses: 0, steps: 0, weight: 70 },
-};
-
 async function callAI(prompt, system = "") {
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
