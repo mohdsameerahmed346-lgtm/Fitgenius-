@@ -452,7 +452,7 @@ export default function App() {
           <div className="auth-box">
             <div className="auth-t">{authMode==="login"?"Welcome Back 💪":"Start Your Journey 🚀"}</div>
             <div className="auth-s">{authMode==="login"?"Login to FitGenius":"Create your free account"}</div>
-            <div className="demo-h">🔑 <strong>Demo:</strong> demo@fitgenius.in / demo123</div>
+            <div className="<div className="demo-h">✅ Create a free account to get started!</div>
             {authMode==="signup" && <div className="field"><label>Full Name</label><input className="finp" placeholder="Arjun Singh" value={authName} onChange={e=>setAuthName(e.target.value)}/></div>}
             <div className="field"><label>Email</label><input className="finp" type="email" placeholder="you@email.com" value={authEmail} onChange={e=>setAuthEmail(e.target.value)}/></div>
             <div className="field"><label>Password</label><input className="finp" type="password" placeholder="••••••••" value={authPass} onChange={e=>setAuthPass(e.target.value)} onKeyDown={e=>e.key==="Enter"&&handleAuth()}/></div>
