@@ -163,6 +163,11 @@ export default function App() {
   }
 
   async function sendChat() {
+    const planInfo = PLANS.find(p => p.id === (user?.plan || "free"));
+    if (user?.plan === "free" && user.uses >= planInfo.limit) {
+      setChatMsgs(prev => [...prev, { role: "assistant", content: "⛔ 3 free chats used this month! Upgrade to Pro for unlimited access! 💪" }]);
+      return;
+    }
     if (!chatInput.trim()) return;
     const msg = chatInput.trim();
     setChatInput("");
