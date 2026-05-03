@@ -352,7 +352,7 @@ export default function App() {
             <>
               <div className="upill">💪 {user.name.split(" ")[0]}<span className="pbadge">{user.plan}</span></div>
               <button className="nb" onClick={() => setPage("dashboard")}>Dashboard</button>
-              <button className="nb ghost" onClick={() => { setUser(null); setPage("landing"); }}>Logout</button>
+              <button className="nb ghost" onClick={() => onClick={async () => { await supabase.auth.signOut(); setUser(null); setPage("landing"); }} >Logout</button>
             </>
           ) : (
             <>
