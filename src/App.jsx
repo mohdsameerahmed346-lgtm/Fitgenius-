@@ -111,7 +111,10 @@ export default function App() {
         setPage("dashboard");
       } else {
         if (!authName || !authEmail || !authPass) { setAuthErr("Fill all fields."); setAuthLoading(false); return; }
-        const { error } = await ...
+        const { error } = await supabase.auth.signInWithPassword({
+  email,
+  password
+});
           email: authEmail,
           password: authPass,
           options: { data: { name: authName } }
