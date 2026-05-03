@@ -111,14 +111,11 @@ export default function App() {
         setPage("dashboard");
       } else {
         if (!authName || !authEmail || !authPass) { setAuthErr("Fill all fields."); setAuthLoading(false); return; }
-        const { error } = await supabase.auth.signInWithPassword({
-  email,
-  password
+        const { error } = await supabase.auth.signUp({
+  email: authEmail,
+  password: authPass,
+  options: { data: { name: authName } }
 });
-          email: authEmail,
-          password: authPass,
-          options: { data: { name: authName } }
-        });
         if (error) { setAuthErr(error.message); setAuthLoading(false); return; }
         setUser({ email: authEmail, name: authName, plan: "free", uses: 0 });
         setPage("dashboard");
