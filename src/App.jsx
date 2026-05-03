@@ -102,28 +102,33 @@ export default function App() {
     }
   }, [page, motivation]);
 
-  function handleAuth() {
+  async function handleAuth() {
     setAuthErr(""); setAuthLoading(true);
-    setTimeout(() => {
+    try {
       if (authMode === "login") {
-        const found = FAKE_USERS[authEmail];
-        if (!found || found.password !== authPass) {
-          setAuthErr("Wrong credentials. Try demo@fitgenius.in / demo123");
-          setAuthLoading(false); return;
-        }
-        setUser({ ...found, email: authEmail });
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: authEmail,
+          password: authPass,
+        });
+        if (error) { setAuthErr(error.message); setAuthLoading(false); return; }
+        setUser({ email: data.user.email, name: data.user.user_metadata?.name || "User", plan: "free", uses: 0 });
         setPage("dashboard");
       } else {
-        if (!authName || !authEmail || !authPass) {
-          setAuthErr("Fill all fields.");
-          setAuthLoading(false); return;
-        }
-        setUser({ email: authEmail, name: authName, plan: "free", uses: 0, steps: 0 });
+        if (!authName || !authEmail || !authPass) { setAuthErr("Fill all fields."); setAuthLoading(false); return; }
+        const { data, error } = await supabase.auth.signUp({
+          email: authEmail,
+          password: authPass,
+          options: { data: { name: authName } }
+        });
+        if (error) { setAuthErr(error.message); setAuthLoading(false); return; }
+        setUser({ email: authEmail, name: authName, plan: "free", uses: 0 });
         setPage("dashboard");
       }
-      setAuthLoading(false);
-    }, 1000);
-  }
+    } catch (e) {
+      setAuthErr("Something went wrong. Please try again.");
+    }
+    setAuthLoading(false);
+    }
 
   async function runTool() {
     const planInfo = PLANS.find(p => p.id === (user?.plan || "free"));
