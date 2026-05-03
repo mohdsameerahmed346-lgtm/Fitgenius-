@@ -126,8 +126,11 @@ export default function App() {
 
   async function runTool() {
     const planInfo = PLANS.find(p => p.id === (user?.plan || "free"));
+    if (user?.plan === "free" && tool !== "chat") {
+      setErr("⛔ Locked! Upgrade to Pro ₹199/month to unlock all features!"); return;
+    }
     if (user?.plan === "free" && user.uses >= planInfo.limit) {
-      setErr("Daily limit reached! Upgrade to Pro for unlimited access. 🔒"); return;
+      setErr("Monthly limit reached! 3 free chats used. Upgrade to Pro! 🔒"); return;
     }
     setLoading(true); setResult(""); setErr("");
     try {
