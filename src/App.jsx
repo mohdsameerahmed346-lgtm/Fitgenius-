@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 const PLANS = [
   {
     id: "free", name: "Starter", price: "₹0", period: "forever", color: "#475569",
-    features: ["3 AI sessions/day", "Step tracker", "Basic workout plans", "1 diet plan/day"],
+    features: ["3 AI chats with Flex per month", "All other features locked", "No step tracker", "No workout plans", "No diet plans"],
     cta: "Start Free", popular: false, limit: 3,
   },
   {
