@@ -97,7 +97,20 @@ export default function App() {
         .catch(() => setMotivation('"The body achieves what the mind believes." — Unknown'));
     }
   }, [page, motivation]);
+async function saveMessage(userId, content, role) {
+  await supabase.from("messages").insert([
+    { user_id: userId, content, role }
+  ]);
+}
 
+async function loadMessages(userId) {
+  const { data } = await supabase
+    .from("messages")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: true });
+  return data || [];
+  }
   async function handleAuth() {
     setAuthErr(""); setAuthLoading(true);
     try {
