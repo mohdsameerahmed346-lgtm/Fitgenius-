@@ -20,13 +20,22 @@ const PLANS = [
 ];
 
 async function callAI(prompt, system = "") {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
+  const res = await fetch("/api/chat", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      "anthropic-version": "2023-06-01",
-      "anthropic-dangerous-direct-browser-access": "true",
+      "Content-Type": "application/json"
     },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 1500,
+      system: system || "You are FitGenius AI — India's most advanced AI fitness coach.",
+      messages: [{ role: "user", content: prompt }]
+    })
+  });
+
+  const data = await res.json();
+  return data.reply;
+      }
     body: JSON.stringify({
       model: "claude-sonnet-4-20250514",
       max_tokens: 1500,
