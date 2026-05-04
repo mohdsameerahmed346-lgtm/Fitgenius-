@@ -16,9 +16,15 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify(req.body),
     });
+
     const data = await response.json();
-    return res.status(200).json(data);
+
+    // ✅ IMPORTANT FIX
+    const reply = data?.content?.[0]?.text || "No response";
+
+    return res.status(200).json({ reply });
+
   } catch (error) {
     return res.status(500).json({ error: "Server error. Please try again." });
   }
-    }
+}
