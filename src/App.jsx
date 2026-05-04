@@ -111,33 +111,34 @@ async function loadMessages(userId) {
     .order("created_at", { ascending: true });
   return data || [];
   }
+  
   async function handleAuth() {
     setAuthErr(""); setAuthLoading(true);
     try {
       if (authMode === "login") {
         const { data, error } = await supabase.auth.signInWithPassword({
-          email: authEmail,
-          password: authPass,
+          email: authEmail, password: authPass,
         });
         if (error) { setAuthErr(error.message); setAuthLoading(false); return; }
-        setUser({ email: data.user.email, name: data.user.user_metadata?.name || "User", plan: "free", uses: 0 });
+        const msgs = await loadMessages(data.user.id);
+        setChatMsgs(msgs.length > 0 ? msgs.map(m => ({ role: m.role, content: m.content })) : [
+          { role: "assistant", content: "Hey! I'm Flex, your AI fitness coach! 💪 Ask me anything!" }
+        ]);
+        setUser({ id: data.user.id, email: data.user.email, name: data.user.user_metadata?.name || "User", plan: "free", uses: 0 });
         setPage("dashboard");
       } else {
         if (!authName || !authEmail || !authPass) { setAuthErr("Fill all fields."); setAuthLoading(false); return; }
-        const { error } = await supabase.auth.signUp({
-  email: authEmail,
-  password: authPass,
-  options: { data: { name: authName } }
-});
+        const { data, error } = await supabase.auth.signUp({
+          email: authEmail, password: authPass,
+          options: { data: { name: authName } }
+        });
         if (error) { setAuthErr(error.message); setAuthLoading(false); return; }
-        setUser({ email: authEmail, name: authName, plan: "free", uses: 0 });
+        setUser({ id: data.user.id, email: authEmail, name: authName, plan: "free", uses: 0 });
         setPage("dashboard");
       }
-    } catch (e) {
-      setAuthErr("Something went wrong. Please try again.");
-    }
+    } catch (e) { setAuthErr("Something went wrong. Try again."); }
     setAuthLoading(false);
-    }
+}
 
   async function runTool() {
     const planInfo = PLANS.find(p => p.id === (user?.plan || "free"));
