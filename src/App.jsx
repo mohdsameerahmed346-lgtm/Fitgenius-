@@ -178,7 +178,7 @@ async function loadMessages(userId) {
     }
   }
 
-  async function sendChat() {
+async function sendChat() {
     const planInfo = PLANS.find(p => p.id === (user?.plan || "free"));
     if (user?.plan === "free" && user.uses >= planInfo.limit) {
       setChatMsgs(prev => [...prev, { role: "assistant", content: "⛔ 3 free chats used this month! Upgrade to Pro for unlimited access! 💪" }]);
@@ -189,16 +189,19 @@ async function loadMessages(userId) {
     setChatInput("");
     const newMsgs = [...chatMsgs, { role: "user", content: msg }];
     setChatMsgs(newMsgs);
+    if (user?.id) await saveMessage(user.id, msg, "user");
     try {
       const r = await callAI(
         newMsgs.map(m => `${m.role === "user" ? "User" : "Flex"}: ${m.content}`).join("\n") + "\nFlex:",
         "You are Flex — a friendly Indian fitness coach AI. Keep responses short (3-4 sentences), practical and motivating. Use fitness emojis. Know Indian diet and gym culture well."
       );
       setChatMsgs([...newMsgs, { role: "assistant", content: r }]);
+      if (user?.id) await saveMessage(user.id, r, "assistant");
+      setUser(prev => ({ ...prev, uses: prev.uses + 1 }));
     } catch {
       setChatMsgs([...newMsgs, { role: "assistant", content: "Sorry, something went wrong! Try again 💪" }]);
     }
-  }
+        }
 
   const planInfo = PLANS.find(p => p.id === (user?.plan || "free"));
   const stepPct = Math.min(100, Math.round((parseInt(steps || 0) / parseInt(stepGoal || 10000)) * 100));
