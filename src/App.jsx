@@ -28,12 +28,14 @@ async function callAI(prompt, system = "") {
     body: JSON.stringify({
       model: "claude-sonnet-4-20250514",
       max_tokens: 1500,
-      system: system || "You are FitGenius AI — India's most advanced AI fitness coach.",
+      system: system || "You are FitGenius AI — India's most advanced AI fitness coach. You give practical, science-based advice tailored for Indian users. Always be encouraging, specific, and actionable.",
       messages: [{ role: "user", content: prompt }]
     })
   });
 
   const data = await res.json();
+  if (data.error) throw new Error(data.error);
+
   return data.reply;
       }
     body: JSON.stringify({
