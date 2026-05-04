@@ -397,7 +397,7 @@ async function sendChat() {
           <div className="sec-s">6 powerful AI tools built for Indian fitness goals</div>
           <div className="feat-grid">
             {[
-              {icon:"👟",title:"Step Tracker",desc:"Track daily steps, set goals, and get personalised motivation based on your progress.",badge:"FREE"},
+              {icon:"👟",title:"Step Tracker",desc:"Track daily steps, set goals, and get personalised motivation based on your progress.",badge:"PRO"},
               {icon:"💪",title:"Workout Planner",desc:"AI creates complete gym workout plans with sets, reps, form tips and mistakes to avoid.",badge:"PRO"},
               {icon:"🧘",title:"Yoga Guide",desc:"Personalised yoga sessions for flexibility, stress relief, weight loss or strength.",badge:"PRO"},
               {icon:"🏃",title:"Cardio Tracker",desc:"Calculate calories burned, heart rate zones and get improvement tips for any cardio.",badge:"PRO"},
