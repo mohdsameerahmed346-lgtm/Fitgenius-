@@ -53,65 +53,6 @@ function getRandom(arr, count, exclude = []) {
   return filtered.sort(() => 0.5 - Math.random()).slice(0, count);
 }
 
-function generateWorkout(goal, level, lastWorkout = [], day = 1) {
-  const base = {
-    weight_loss: {
-      beginner: [
-        "Jumping Jacks",
-        "Bodyweight Squats",
-        "High Knees",
-        "Plank",
-        "Wall Sit",
-        "Marching in place"
-      ],
-      advanced: [
-        "Burpees",
-        "Mountain Climbers",
-        "Jump Squats",
-        "Plank",
-        "Skaters",
-        "Sprint in place"
-      ]
-    },
-
-    muscle_gain: {
-      beginner: [
-        "Push-ups",
-        "Squats",
-        "Lunges",
-        "Plank",
-        "Glute Bridge",
-        "Wall Push-ups"
-      ],
-      advanced: [
-        "Push-ups",
-        "Squats",
-        "Lunges",
-        "Plank",
-        "Bulgarian Split Squat",
-        "Decline Push-ups"
-      ]
-    }
-  };
-
-  const pool = base[goal]?.[level] || [];
-
-  // Avoid repeating last workout
-  let selected = getRandom(pool, 4, lastWorkout);
-
-  // If not enough unique, allow repeat
-  if (selected.length < 4) {
-    selected = getRandom(pool, 4);
-  }
-
-  // Add progression (increase reps every day)
-  const repsMultiplier = 1 + (day * 0.1);
-
-  return selected.map(ex => {
-    const reps = Math.round(10 * repsMultiplier);
-    return `${ex} — ${reps} reps`;
-  });
-}
 export default function App() {
   const [page, setPage] = useState("landing");
   const [user, setUser] = useState(null);
@@ -142,8 +83,6 @@ export default function App() {
   const [dGoal, setDGoal] = useState("Weight Loss");
   const [dDiet, setDDiet] = useState("Vegetarian");
   const [dAllergy, setDAllergy] = useState("");
-  const [lastWorkout, setLastWorkout] = useState([]);
-  const [day, setDay] = useState(1);
   const [chatMsgs, setChatMsgs] = useState([
     { role: "assistant", content: "Hey! I'm Flex, your AI fitness coach! 💪 Ask me anything about workouts, nutrition, or fitness goals!" }
   ]);
