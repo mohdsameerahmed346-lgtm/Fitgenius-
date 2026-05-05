@@ -48,11 +48,6 @@ const TOOLS = [
   { id: "chat", icon: "🤖", label: "AI Trainer" },
 ];
 
-function getRandom(arr, count, exclude = []) {
-  const filtered = arr.filter(x => !exclude.includes(x));
-  return filtered.sort(() => 0.5 - Math.random()).slice(0, count);
-}
-
 export default function App() {
   const [page, setPage] = useState("landing");
   const [user, setUser] = useState(null);
