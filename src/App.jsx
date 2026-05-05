@@ -142,9 +142,6 @@ export default function App() {
   const [dGoal, setDGoal] = useState("Weight Loss");
   const [dDiet, setDDiet] = useState("Vegetarian");
   const [dAllergy, setDAllergy] = useState("");
-  const [goal, setGoal] = useState("weight_loss");
-  const [level, setLevel] = useState("beginner");
-  const [workout, setWorkout] = useState([]);
   const [lastWorkout, setLastWorkout] = useState([]);
   const [day, setDay] = useState(1);
   const [chatMsgs, setChatMsgs] = useState([
