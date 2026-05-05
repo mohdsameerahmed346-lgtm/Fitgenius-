@@ -621,6 +621,15 @@ async function sendChat() {
                     </select>
                   </div>
                 </div>
+                onClick={() => {
+  const mappedGoal = wMuscle === "Full Body" ? "muscle_gain" : "muscle_gain";
+  const mappedLevel = wLevel.toLowerCase() === "beginner" ? "beginner" : "advanced";
+
+  const plan = generateWorkout(mappedGoal, mappedLevel, lastWorkout, day);
+  setWorkout(plan);
+  setLastWorkout(plan.map(w => w.split(" — ")[0]));
+  setDay(prev => prev + 1);
+}}
               </>}
 
               {tool === "yoga" && <>
