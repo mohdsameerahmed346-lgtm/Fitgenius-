@@ -260,8 +260,8 @@ async function callAI(messages, systemPrompt) {
     }),
   });
   const data = await res.json();
-  if (data.error) throw new Error(data.error.message);
-  return data.content?.[0]?.text || "";
+  if (data.error) throw new Error(data.error);
+return data.reply;
 }
 
 // ── MAIN APP ──────────────────────────────────────────────────────────────────
