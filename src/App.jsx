@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { supabase } from "./supabaseClient";
 
 // ── CONSTANTS ─────────────────────────────────────────────────────────────────
@@ -283,12 +283,10 @@ export default function App() {
   const [authLoading, setAuthLoading] = useState(false);
 
   // Onboarding
-  const [obStep, setObStep] = useState(1);
   const [obData, setObData] = useState({ goal: "weight_loss", level: "beginner", weight: "", height: "", diet: "veg", step_goal: "8000", budget: "100" });
 
   // Steps
   const [steps, setSteps] = useState("");
-  const [stepGoal] = useState(profile?.step_goal || 8000);
 
   // Workout
   const [wMuscle, setWMuscle] = useState("fullbody");
