@@ -19,9 +19,20 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify(req.body),
     });
+
     const data = await response.json();
-    return res.status(200).json(data);
+
+    if (!response.ok) {
+      return res.status(400).json({
+        error: data.error?.message || "API request failed"
+      });
+    }
+
+    return res.status(200).json({
+      reply: data.content?.[0]?.text || "No response"
+    });
+
   } catch (error) {
     return res.status(500).json({ error: "Server error. Please try again." });
   }
-                      }
+        }
