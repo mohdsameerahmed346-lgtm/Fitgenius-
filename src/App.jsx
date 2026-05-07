@@ -268,7 +268,6 @@ return data.reply;
 // ── MAIN APP ──────────────────────────────────────────────────────────────────
 
 export default function App() {
-  try 
   // ── State
   const [page, setPage] = useState("landing");
   const [user, setUser] = useState(null);
