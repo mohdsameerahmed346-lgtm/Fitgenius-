@@ -2,9 +2,6 @@
 import { useState, useEffect, useRef } from "react";
 import { supabase } from "./supabaseClient";
 
-console.log("URL:", process.env.REACT_APP_SUPABASE_URL);
-console.log("KEY:", process.env.REACT_APP_SUPABASE_ANON_KEY);
-
 // ── CONSTANTS ─────────────────────────────────────────────────────────────────
 
 const PLANS = {
@@ -271,6 +268,7 @@ return data.reply;
 // ── MAIN APP ──────────────────────────────────────────────────────────────────
 
 export default function App() {
+  try {
   // ── State
   const [page, setPage] = useState("landing");
   const [user, setUser] = useState(null);
@@ -547,6 +545,19 @@ export default function App() {
     </div>
   );
 
+  } catch (err) {
+    return (
+      <div style={{
+        color: "white",
+        background: "black",
+        padding: "20px",
+        minHeight: "100vh"
+      }}>
+        ERROR: {String(err.message)}
+      </div>
+    );
+  }
+                            }
   return (
     <div style={{ minHeight: "100vh", background: "#030609", color: "#E8F5F0", fontFamily: "sans-serif", overflowX: "hidden" }}>
       <style>{`
