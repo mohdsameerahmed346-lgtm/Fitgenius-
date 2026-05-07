@@ -544,19 +544,6 @@ export default function App() {
     </div>
   );
 
-  } catch (err) {
-    return (
-      <div style={{
-        color: "white",
-        background: "black",
-        padding: "20px",
-        minHeight: "100vh"
-      }}>
-        ERROR: {String(err.message)}
-      </div>
-    );
-  }
-                            }
   return (
     <div style={{ minHeight: "100vh", background: "#030609", color: "#E8F5F0", fontFamily: "sans-serif", overflowX: "hidden" }}>
       <style>{`
