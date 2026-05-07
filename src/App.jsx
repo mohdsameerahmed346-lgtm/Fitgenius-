@@ -2,8 +2,8 @@
 import { useState, useEffect, useRef } from "react";
 import { supabase } from "./supabaseClient";
 
-console.log("APP STARTED");
-console.log(process.env.REACT_APP_SUPABASE_URL);
+console.log("URL:", process.env.REACT_APP_SUPABASE_URL);
+console.log("KEY:", process.env.REACT_APP_SUPABASE_ANON_KEY);
 
 // ── CONSTANTS ─────────────────────────────────────────────────────────────────
 
